@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Gestor de Estudiantes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css')}}">
+  </head>
+  <body>
+    
+    <div class="full-height text-center">
+      <div class="animated fadeInDown delay-2">
+        <h1>Universidad Tecnica Particular de Loja</h1>
+      </div>
+      
+    </div>
+
+    
+    <div class="col-md-5 center-block no-float top-space text-left">
+
+      <h2>Agregar Estudiante</h2>
+
+      <form class="form-inline" method="POST" action="/">
+        <div class="form-group mb-2">
+          <input type="text" class="form-control"  name="nombre" placeholder="Nombres" required>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="text" class="form-control" name="apellido" placeholder="Apellidos" required>
+        </div>
+        <input type="submit" class="btn btn-primary mb-2" value="Add">
+      </form>
+    </div>
+    
+
+    
+  <div id="table">
+    <h2>Estudiantes</h2>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+          <tr class="info">
+              <th scope="col">ID</th>
+              <th scope="col">Datos</th>
+              
+          </tr>
+      </thead>
+      {% for estudent in estudents %}
+        <tbody>
+          <tr>
+            <td id="td1">
+              <p>{{estudent.id}}</p>
+            </td>
+            <td id="td2">
+              <div>
+              <form method="POST" action="./update">
+                <input type="hidden" value="{{estudent.id}}" name="idestudent">
+                <div class="form-group mb-2">
+                    <input type="text" class="form-control"  value="{{estudent.nombre}}" name="newnombre" placeholder="Nombres" required>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" value="{{estudent.apellido}}" name="newapellido" placeholder="Apellidos" required>
+                </div>
+                <input type="submit" value="Update" class="btn btn-success">
+              </form>
+              </div>
+              <div>
+              <form method="POST" action="./delete" >
+                <input type="hidden" value="{{estudent.id}}" name="idestudent">
+                <input type="submit" value="Delete" class="btn btn-success">
+              </form>
+            </div>
+            </td>
+          </tr>
+        </tbody>
+      {% endfor %}
+
+    </table>
+  </div>
+  </body>
+</html>
